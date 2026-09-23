@@ -1,0 +1,2175 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport"
+   content="width=device-width, initial-scale=1.0">
+
+<title>TamilBeats - Tamil Music</title>
+
+<style>
+
+/* =====================================================
+   GLOBAL
+===================================================== */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+
+    font-family:
+        Arial,
+        Helvetica,
+        sans-serif;
+
+    background: #09090d;
+
+    color: white;
+
+    padding-bottom: 110px;
+}
+
+
+/* =====================================================
+   HEADER
+===================================================== */
+
+header {
+
+    position: sticky;
+
+    top: 0;
+
+    z-index: 1000;
+
+    height: 75px;
+
+    background: rgba(15,15,21,.96);
+
+    border-bottom:
+        1px solid #292932;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    padding:
+        0 6%;
+
+    backdrop-filter: blur(15px);
+}
+
+
+.logo {
+
+    font-size: 26px;
+
+    font-weight: bold;
+
+    white-space: nowrap;
+}
+
+.logo-icon {
+
+    color: #ff3158;
+
+    margin-right: 8px;
+}
+
+.logo span {
+
+    color: #ff3158;
+}
+
+
+nav {
+
+    display: flex;
+
+    gap: 25px;
+}
+
+nav a {
+
+    color: #bbb;
+
+    text-decoration: none;
+
+    transition: .3s;
+}
+
+nav a:hover {
+
+    color: #ff3158;
+}
+
+
+.search {
+
+    display: flex;
+
+    align-items: center;
+
+    background: #202027;
+
+    border-radius: 25px;
+
+    overflow: hidden;
+}
+
+.search input {
+
+    width: 200px;
+
+    padding:
+        11px 15px;
+
+    background: transparent;
+
+    border: none;
+
+    outline: none;
+
+    color: white;
+}
+
+.search button {
+
+    padding:
+        11px 16px;
+
+    border: none;
+
+    background: #ff3158;
+
+    color: white;
+
+    cursor: pointer;
+}
+
+
+/* =====================================================
+   HERO
+===================================================== */
+
+.hero {
+
+    min-height: 550px;
+
+    display: flex;
+
+    align-items: center;
+
+    padding:
+        60px 8%;
+
+    background:
+
+        linear-gradient(
+            90deg,
+            #09090d 10%,
+            rgba(9,9,13,.82),
+            rgba(9,9,13,.2)
+        ),
+
+        url(
+            "https://images.unsplash.com/photo-1514525253161-7a46d19cd819?auto=format&fit=crop&w=1600&q=80"
+        );
+
+    background-size: cover;
+
+    background-position: center;
+}
+
+
+.hero-content {
+
+    max-width: 600px;
+}
+
+
+.small-title {
+
+    color: #ff3158;
+
+    letter-spacing: 5px;
+
+    font-weight: bold;
+}
+
+
+.hero h1 {
+
+    font-size: clamp(
+        55px,
+        8vw,
+        90px
+    );
+
+    margin:
+        15px 0;
+}
+
+
+.hero h1 span {
+
+    color: #ff3158;
+}
+
+
+.hero p {
+
+    color: #ccc;
+
+    font-size: 18px;
+
+    line-height: 1.7;
+}
+
+
+.explore-btn {
+
+    margin-top: 25px;
+
+    padding:
+        14px 30px;
+
+    border: none;
+
+    border-radius: 30px;
+
+    background: #ff3158;
+
+    color: white;
+
+    font-weight: bold;
+
+    cursor: pointer;
+
+    transition: .3s;
+}
+
+.explore-btn:hover {
+
+    transform:
+        translateY(-3px);
+
+    box-shadow:
+        0 10px 30px
+        rgba(255,49,88,.3);
+}
+
+
+/* =====================================================
+   SECTIONS
+===================================================== */
+
+.section {
+
+    padding:
+        60px 7%;
+}
+
+
+.section-title {
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    margin-bottom: 25px;
+}
+
+
+.section-title h2 {
+
+    font-size: 28px;
+}
+
+
+.section-title span {
+
+    color: #ff3158;
+
+    cursor: pointer;
+}
+
+
+/* =====================================================
+   SONG GRID
+===================================================== */
+
+.song-grid {
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(4,1fr);
+
+    gap: 25px;
+}
+
+
+.song-card {
+
+    background: #16161e;
+
+    border:
+        1px solid #24242d;
+
+    border-radius: 15px;
+
+    overflow: hidden;
+
+    transition: .3s;
+}
+
+
+.song-card:hover {
+
+    transform:
+        translateY(-8px);
+
+    border-color:
+        #ff3158;
+}
+
+
+.song-card img {
+
+    width: 100%;
+
+    height: 220px;
+
+    object-fit: cover;
+
+    display: block;
+}
+
+
+.song-info {
+
+    padding: 17px;
+
+    position: relative;
+
+    min-height: 105px;
+}
+
+
+.song-info h3 {
+
+    margin-bottom: 7px;
+}
+
+
+.song-info p {
+
+    color: #888;
+}
+
+
+.song-info button {
+
+    position: absolute;
+
+    right: 15px;
+
+    bottom: 18px;
+
+    width: 43px;
+
+    height: 43px;
+
+    border: none;
+
+    border-radius: 50%;
+
+    background: #ff3158;
+
+    color: white;
+
+    cursor: pointer;
+
+    font-size: 16px;
+}
+
+
+/* =====================================================
+   ALBUMS
+===================================================== */
+
+.album-grid {
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(4,1fr);
+
+    gap: 25px;
+}
+
+
+.album {
+
+    background: #16161e;
+
+    border:
+        1px solid #24242d;
+
+    border-radius: 15px;
+
+    padding: 20px;
+
+    text-align: center;
+
+    transition: .3s;
+}
+
+
+.album:hover {
+
+    transform:
+        translateY(-5px);
+}
+
+
+.album-image {
+
+    height: 180px;
+
+    border-radius: 12px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #ff3158,
+            #642cff
+        );
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    font-size: 70px;
+
+    margin-bottom: 15px;
+}
+
+
+.album p {
+
+    color: #888;
+
+    margin-top: 6px;
+}
+
+
+/* =====================================================
+   ARTISTS
+===================================================== */
+
+.artists {
+
+    display: flex;
+
+    gap: 45px;
+
+    flex-wrap: wrap;
+}
+
+
+.artist {
+
+    text-align: center;
+}
+
+
+.artist-circle {
+
+    width: 110px;
+
+    height: 110px;
+
+    border-radius: 50%;
+
+    background:
+        linear-gradient(
+            135deg,
+            #ff3158,
+            #642cff
+        );
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    font-size: 40px;
+
+    font-weight: bold;
+
+    margin-bottom: 12px;
+}
+
+
+/* =====================================================
+   PLAYER
+===================================================== */
+
+.player {
+
+    position: fixed;
+
+    left: 0;
+
+    bottom: 0;
+
+    width: 100%;
+
+    height: 100px;
+
+    z-index: 2000;
+
+    background:
+        rgba(20,20,27,.98);
+
+    border-top:
+        1px solid #292932;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content:
+        space-around;
+
+    gap: 20px;
+
+    padding:
+        10px 4%;
+}
+
+
+.now-playing {
+
+    width: 25%;
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 12px;
+}
+
+
+.mini-cover {
+
+    width: 55px;
+
+    height: 55px;
+
+    border-radius: 9px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #ff3158,
+            #642cff
+        );
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    font-size: 25px;
+
+    overflow: hidden;
+}
+
+
+.mini-cover img {
+
+    width: 100%;
+
+    height: 100%;
+
+    object-fit: cover;
+}
+
+
+.now-playing h4 {
+
+    max-width: 200px;
+
+    white-space: nowrap;
+
+    overflow: hidden;
+
+    text-overflow: ellipsis;
+}
+
+
+.now-playing p {
+
+    color: #888;
+
+    font-size: 12px;
+
+    margin-top: 4px;
+}
+
+
+.controls {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 25px;
+}
+
+
+.controls button {
+
+    background: transparent;
+
+    color: white;
+
+    border: none;
+
+    font-size: 18px;
+
+    cursor: pointer;
+}
+
+
+.play-button {
+
+    width: 48px;
+
+    height: 48px;
+
+    border-radius: 50%;
+
+    background: #ff3158 !important;
+}
+
+
+.progress-container {
+
+    width: 35%;
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 10px;
+}
+
+
+.progress-container span {
+
+    color: #888;
+
+    font-size: 12px;
+}
+
+
+#progress {
+
+    width: 100%;
+
+    accent-color: #ff3158;
+}
+
+
+#volume {
+
+    width: 80px;
+
+    accent-color: #ff3158;
+}
+
+
+/* =====================================================
+   ADMIN PANEL
+===================================================== */
+
+.admin {
+
+    background: #111118;
+
+    border:
+        1px solid #292932;
+
+    border-radius: 18px;
+
+    padding: 30px;
+
+    max-width: 800px;
+
+    margin: auto;
+}
+
+
+.admin h2 {
+
+    margin-bottom: 20px;
+}
+
+
+.admin input {
+
+    width: 100%;
+
+    padding: 14px;
+
+    margin:
+        8px 0 15px;
+
+    background: #22222b;
+
+    border: 1px solid #33333d;
+
+    color: white;
+
+    border-radius: 8px;
+}
+
+
+.admin label {
+
+    color: #bbb;
+
+    font-size: 14px;
+}
+
+
+.admin button {
+
+    width: 100%;
+
+    padding: 14px;
+
+    background: #ff3158;
+
+    color: white;
+
+    border: none;
+
+    border-radius: 8px;
+
+    cursor: pointer;
+
+    font-weight: bold;
+}
+
+
+.admin-message {
+
+    margin-top: 15px;
+
+    color: #57e389;
+}
+
+
+/* =====================================================
+   FOOTER
+===================================================== */
+
+footer {
+
+    background: #111116;
+
+    text-align: center;
+
+    padding:
+        50px 20px;
+}
+
+
+footer h2 {
+
+    margin-bottom: 10px;
+}
+
+
+footer p {
+
+    color: #888;
+
+    margin-top: 8px;
+}
+
+
+/* =====================================================
+   MOBILE
+===================================================== */
+
+@media(max-width: 1000px) {
+
+    .song-grid,
+    .album-grid {
+
+        grid-template-columns:
+            repeat(2,1fr);
+    }
+
+    nav {
+
+        display: none;
+    }
+
+}
+
+
+@media(max-width: 650px) {
+
+    header {
+
+        padding:
+            0 20px;
+    }
+
+    .search {
+
+        display: none;
+    }
+
+    .song-grid,
+    .album-grid {
+
+        grid-template-columns:
+            1fr;
+    }
+
+    .hero {
+
+        min-height: 450px;
+    }
+
+    .player {
+
+        height: 85px;
+
+        padding:
+            8px 10px;
+    }
+
+    .now-playing {
+
+        width: 35%;
+    }
+
+    .now-playing h4 {
+
+        max-width: 100px;
+    }
+
+    .progress-container {
+
+        display: none;
+    }
+
+    #volume {
+
+        display: none;
+    }
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<!-- =====================================================
+     HEADER
+===================================================== -->
+
+<header>
+
+```
+<div class="logo">
+
+    <span class="logo-icon">♫</span>
+
+    Tamil<span>Beats</span>
+
+</div>
+
+
+<nav>
+
+    <a href="#home">
+        Home
+    </a>
+
+    <a href="#latest">
+        Latest
+    </a>
+
+    <a href="#albums">
+        Albums
+    </a>
+
+    <a href="#artists">
+        Artists
+    </a>
+
+    <a href="#admin">
+        Upload
+    </a>
+
+</nav>
+
+
+<div class="search">
+
+    <input
+        type="text"
+        id="searchBox"
+        placeholder="Search songs..."
+        oninput="searchSongs()">
+
+    <button onclick="searchSongs()">
+        🔍
+    </button>
+
+</div>
+```
+
+</header>
+
+<!-- =====================================================
+     HERO
+===================================================== -->
+
+<section
+    class="hero"
+    id="home">
+
+```
+<div class="hero-content">
+
+    <p class="small-title">
+        WELCOME TO
+    </p>
+
+    <h1>
+        Tamil<span>Beats</span>
+    </h1>
+
+    <p>
+        Discover Tamil music, albums and artists
+        in one beautiful place.
+    </p>
+
+    <button
+        class="explore-btn"
+        onclick="scrollToLatest()">
+
+        Explore Music
+
+    </button>
+
+</div>
+```
+
+</section>
+
+<!-- =====================================================
+     LATEST SONGS
+===================================================== -->
+
+<section
+    class="section"
+    id="latest">
+
+```
+<div class="section-title">
+
+    <h2>
+        🔥 Latest Songs
+    </h2>
+
+    <span>
+        All Songs
+    </span>
+
+</div>
+
+
+<div
+    class="song-grid"
+    id="songList">
+
+
+    <!-- SAMPLE SONG 1 -->
+
+    <div
+        class="song-card"
+        data-name="Tamil Melody">
+
+        <img
+            src="https://images.unsplash.com/photo-1516280440614-37939bbacd81?auto=format&fit=crop&w=600&q=80"
+            alt="Tamil Melody">
+
+        <div class="song-info">
+
+            <h3>
+                Tamil Melody
+            </h3>
+
+            <p>
+                Demo Artist
+            </p>
+
+            <button
+                onclick="playDemo()">
+
+                ▶
+
+            </button>
+
+        </div>
+
+    </div>
+
+
+    <!-- SAMPLE SONG 2 -->
+
+    <div
+        class="song-card"
+        data-name="Summer Beats">
+
+        <img
+            src="https://images.unsplash.com/photo-1492684223066-81342ee5ff30?auto=format&fit=crop&w=600&q=80"
+            alt="Summer Beats">
+
+        <div class="song-info">
+
+            <h3>
+                Summer Beats
+            </h3>
+
+            <p>
+                Demo Artist
+            </p>
+
+            <button
+                onclick="playDemo()">
+
+                ▶
+
+            </button>
+
+        </div>
+
+    </div>
+
+
+    <!-- SAMPLE SONG 3 -->
+
+    <div
+        class="song-card"
+        data-name="Love Melody">
+
+        <img
+            src="https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?auto=format&fit=crop&w=600&q=80"
+            alt="Love Melody">
+
+        <div class="song-info">
+
+            <h3>
+                Love Melody
+            </h3>
+
+            <p>
+                Demo Artist
+            </p>
+
+            <button
+                onclick="playDemo()">
+
+                ▶
+
+            </button>
+
+        </div>
+
+    </div>
+
+
+    <!-- SAMPLE SONG 4 -->
+
+    <div
+        class="song-card"
+        data-name="Kuthu Beats">
+
+        <img
+            src="https://images.unsplash.com/photo-1524368535928-5b5e00ddc76b?auto=format&fit=crop&w=600&q=80"
+            alt="Kuthu Beats">
+
+        <div class="song-info">
+
+            <h3>
+                Kuthu Beats
+            </h3>
+
+            <p>
+                Demo Artist
+            </p>
+
+            <button
+                onclick="playDemo()">
+
+                ▶
+
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+```
+
+</section>
+
+<!-- =====================================================
+     ALBUMS
+===================================================== -->
+
+<section
+    class="section"
+    id="albums">
+
+```
+<div class="section-title">
+
+    <h2>
+        💿 Popular Albums
+    </h2>
+
+</div>
+
+
+<div class="album-grid">
+
+    <div class="album">
+
+        <div class="album-image">
+            🎶
+        </div>
+
+        <h3>
+            Melody Hits
+        </h3>
+
+        <p>
+            Tamil Collection
+        </p>
+
+    </div>
+
+
+    <div class="album">
+
+        <div class="album-image">
+            🎸
+        </div>
+
+        <h3>
+            Rock Tamil
+        </h3>
+
+        <p>
+            Tamil Collection
+        </p>
+
+    </div>
+
+
+    <div class="album">
+
+        <div class="album-image">
+            🥁
+        </div>
+
+        <h3>
+            Kuthu Collection
+        </h3>
+
+        <p>
+            Tamil Collection
+        </p>
+
+    </div>
+
+
+    <div class="album">
+
+        <div class="album-image">
+            ❤️
+        </div>
+
+        <h3>
+            Love Songs
+        </h3>
+
+        <p>
+            Tamil Collection
+        </p>
+
+    </div>
+
+</div>
+```
+
+</section>
+
+<!-- =====================================================
+     ARTISTS
+===================================================== -->
+
+<section
+    class="section"
+    id="artists">
+
+```
+<div class="section-title">
+
+    <h2>
+        🎤 Popular Artists
+    </h2>
+
+</div>
+
+
+<div class="artists">
+
+    <div class="artist">
+
+        <div class="artist-circle">
+            A
+        </div>
+
+        <h3>
+            Artist One
+        </h3>
+
+    </div>
+
+
+    <div class="artist">
+
+        <div class="artist-circle">
+            B
+        </div>
+
+        <h3>
+            Artist Two
+        </h3>
+
+    </div>
+
+
+    <div class="artist">
+
+        <div class="artist-circle">
+            C
+        </div>
+
+        <h3>
+            Artist Three
+        </h3>
+
+    </div>
+
+
+    <div class="artist">
+
+        <div class="artist-circle">
+            D
+        </div>
+
+        <h3>
+            Artist Four
+        </h3>
+
+    </div>
+
+</div>
+```
+
+</section>
+
+<!-- =====================================================
+     UPLOAD SECTION
+===================================================== -->
+
+<section
+    class="section"
+    id="admin">
+
+```
+<div class="admin">
+
+    <h2>
+        📤 Add Your Music
+    </h2>
+
+    <p style="color:#888;margin-bottom:20px;">
+        Upload music you created or have permission
+        to distribute.
+    </p>
+
+
+    <label>
+        Song Name
+    </label>
+
+    <input
+        type="text"
+        id="songName"
+        placeholder="Enter song name">
+
+
+    <label>
+        Artist
+    </label>
+
+    <input
+        type="text"
+        id="artistName"
+        placeholder="Enter artist name">
+
+
+    <label>
+        Album
+    </label>
+
+    <input
+        type="text"
+        id="albumName"
+        placeholder="Enter album name">
+
+
+    <label>
+        Audio File
+    </label>
+
+    <input
+        type="file"
+        id="audioFile"
+        accept="audio/*">
+
+
+    <label>
+        Cover Image
+    </label>
+
+    <input
+        type="file"
+        id="coverFile"
+        accept="image/*">
+
+
+    <button
+        onclick="addSong()">
+
+        Add Song To Website
+
+    </button>
+
+
+    <div
+        class="admin-message"
+        id="adminMessage">
+    </div>
+
+</div>
+```
+
+</section>
+
+<!-- =====================================================
+     AUDIO PLAYER
+===================================================== -->
+
+<audio
+ id="audioPlayer"> </audio>
+
+<div class="player">
+
+```
+<div class="now-playing">
+
+    <div
+        class="mini-cover"
+        id="miniCover">
+
+        🎵
+
+    </div>
+
+
+    <div>
+
+        <h4
+            id="currentSong">
+
+            No song selected
+
+        </h4>
+
+        <p>
+            Now Playing
+        </p>
+
+    </div>
+
+</div>
+
+
+<div class="controls">
+
+
+    <button
+        onclick="previousSong()">
+
+        ⏮
+
+    </button>
+
+
+    <button
+        class="play-button"
+        onclick="togglePlay()"
+        id="playButton">
+
+        ▶
+
+    </button>
+
+
+    <button
+        onclick="nextSong()">
+
+        ⏭
+
+    </button>
+
+</div>
+
+
+<div class="progress-container">
+
+    <span id="currentTime">
+        0:00
+    </span>
+
+
+    <input
+        type="range"
+        id="progress"
+        min="0"
+        max="100"
+        value="0">
+
+
+    <span id="duration">
+        0:00
+    </span>
+
+
+    <input
+        type="range"
+        id="volume"
+        min="0"
+        max="1"
+        step="0.01"
+        value="1">
+
+</div>
+```
+
+</div>
+
+<!-- =====================================================
+     FOOTER
+===================================================== -->
+
+<footer>
+
+```
+<h2>
+    🎧 TamilBeats
+</h2>
+
+<p>
+    A modern Tamil music platform.
+</p>
+
+<p>
+    © 2026 TamilBeats.
+    All rights reserved.
+</p>
+```
+
+</footer>
+
+<script>
+
+/* =====================================================
+   VARIABLES
+===================================================== */
+
+let songs = [];
+
+let currentIndex = 0;
+
+const audio =
+    document.getElementById(
+        "audioPlayer"
+    );
+
+
+/* =====================================================
+   ADD SONG
+===================================================== */
+
+function addSong() {
+
+    const name =
+        document.getElementById(
+            "songName"
+        ).value.trim();
+
+
+    const artist =
+        document.getElementById(
+            "artistName"
+        ).value.trim();
+
+
+    const album =
+        document.getElementById(
+            "albumName"
+        ).value.trim();
+
+
+    const audioFile =
+        document.getElementById(
+            "audioFile"
+        ).files[0];
+
+
+    const coverFile =
+        document.getElementById(
+            "coverFile"
+        ).files[0];
+
+
+    const message =
+        document.getElementById(
+            "adminMessage"
+        );
+
+
+    if (
+        !name ||
+        !artist ||
+        !audioFile
+    ) {
+
+        message.textContent =
+            "❌ Please enter song name, artist and audio file.";
+
+        return;
+
+    }
+
+
+    if (
+        !audioFile.type.startsWith(
+            "audio/"
+        )
+    ) {
+
+        message.textContent =
+            "❌ Please select a valid audio file.";
+
+        return;
+
+    }
+
+
+    const audioURL =
+        URL.createObjectURL(
+            audioFile
+        );
+
+
+    let imageURL =
+        "https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?auto=format&fit=crop&w=600&q=80";
+
+
+    if (coverFile) {
+
+        imageURL =
+            URL.createObjectURL(
+                coverFile
+            );
+
+    }
+
+
+    const song = {
+
+        name: name,
+
+        artist: artist,
+
+        album:
+            album || "Single",
+
+        audio:
+            audioURL,
+
+        image:
+            imageURL
+
+    };
+
+
+    songs.push(song);
+
+
+    displaySongs();
+
+
+    document.getElementById(
+        "songName"
+    ).value = "";
+
+
+    document.getElementById(
+        "artistName"
+    ).value = "";
+
+
+    document.getElementById(
+        "albumName"
+    ).value = "";
+
+
+    document.getElementById(
+        "audioFile"
+    ).value = "";
+
+
+    document.getElementById(
+        "coverFile"
+    ).value = "";
+
+
+    message.textContent =
+        "✅ Song added successfully!";
+
+}
+
+
+/* =====================================================
+   DISPLAY SONGS
+===================================================== */
+
+function displaySongs() {
+
+    const container =
+        document.getElementById(
+            "songList"
+        );
+
+
+    container.innerHTML = "";
+
+
+    songs.forEach(
+        (song,index) => {
+
+            const card =
+                document.createElement(
+                    "div"
+                );
+
+
+            card.className =
+                "song-card";
+
+
+            card.dataset.name =
+                song.name;
+
+
+            card.innerHTML = `
+
+                <img
+                    src="${song.image}"
+                    alt="${song.name}">
+
+                <div class="song-info">
+
+                    <h3>
+                        ${song.name}
+                    </h3>
+
+                    <p>
+                        ${song.artist}
+                    </p>
+
+                    <button
+                        onclick="playSong(${index})">
+
+                        ▶
+
+                    </button>
+
+                </div>
+
+            `;
+
+
+            container.appendChild(
+                card
+            );
+
+        }
+    );
+
+}
+
+
+/* =====================================================
+   PLAY SONG
+===================================================== */
+
+function playSong(index) {
+
+    if (!songs[index]) return;
+
+
+    currentIndex =
+        index;
+
+
+    const song =
+        songs[index];
+
+
+    audio.src =
+        song.audio;
+
+
+    document.getElementById(
+        "currentSong"
+    ).textContent =
+        song.name;
+
+
+    document.getElementById(
+        "miniCover"
+    ).innerHTML = `
+
+        <img
+            src="${song.image}"
+            alt="${song.name}">
+
+    `;
+
+
+    audio.play();
+
+
+    document.getElementById(
+        "playButton"
+    ).textContent =
+        "⏸";
+
+}
+
+
+/* =====================================================
+   PLAY DEMO
+===================================================== */
+
+function playDemo() {
+
+    alert(
+        "Add your own licensed MP3 using the Upload Music section below."
+    );
+
+}
+
+
+/* =====================================================
+   PLAY / PAUSE
+===================================================== */
+
+function togglePlay() {
+
+    if (!audio.src) {
+
+        if (songs.length > 0) {
+
+            playSong(0);
+
+        } else {
+
+            alert(
+                "Please upload a song first."
+            );
+
+        }
+
+        return;
+
+    }
+
+
+    if (audio.paused) {
+
+        audio.play();
+
+
+        document.getElementById(
+            "playButton"
+        ).textContent =
+            "⏸";
+
+    } else {
+
+        audio.pause();
+
+
+        document.getElementById(
+            "playButton"
+        ).textContent =
+            "▶";
+
+    }
+
+}
+
+
+/* =====================================================
+   NEXT
+===================================================== */
+
+function nextSong() {
+
+    if (
+        songs.length === 0
+    ) return;
+
+
+    currentIndex++;
+
+
+    if (
+        currentIndex >=
+        songs.length
+    ) {
+
+        currentIndex = 0;
+
+    }
+
+
+    playSong(
+        currentIndex
+    );
+
+}
+
+
+/* =====================================================
+   PREVIOUS
+===================================================== */
+
+function previousSong() {
+
+    if (
+        songs.length === 0
+    ) return;
+
+
+    currentIndex--;
+
+
+    if (
+        currentIndex < 0
+    ) {
+
+        currentIndex =
+            songs.length - 1;
+
+    }
+
+
+    playSong(
+        currentIndex
+    );
+
+}
+
+
+/* =====================================================
+   AUTO NEXT
+===================================================== */
+
+audio.addEventListener(
+    "ended",
+    function() {
+
+        nextSong();
+
+    }
+);
+
+
+/* =====================================================
+   PROGRESS
+===================================================== */
+
+audio.addEventListener(
+    "timeupdate",
+    function() {
+
+        if (
+            !audio.duration
+        ) return;
+
+
+        const progress =
+            document.getElementById(
+                "progress"
+            );
+
+
+        progress.value =
+            (
+                audio.currentTime /
+                audio.duration
+            ) * 100;
+
+
+        document.getElementById(
+            "currentTime"
+        ).textContent =
+            formatTime(
+                audio.currentTime
+            );
+
+
+        document.getElementById(
+            "duration"
+        ).textContent =
+            formatTime(
+                audio.duration
+            );
+
+    }
+);
+
+
+/* =====================================================
+   SEEK
+===================================================== */
+
+document
+    .getElementById(
+        "progress"
+    )
+    .addEventListener(
+        "input",
+        function() {
+
+            if (
+                !audio.duration
+            ) return;
+
+
+            audio.currentTime =
+                (
+                    this.value /
+                    100
+                ) *
+                audio.duration;
+
+        }
+    );
+
+
+/* =====================================================
+   VOLUME
+===================================================== */
+
+document
+    .getElementById(
+        "volume"
+    )
+    .addEventListener(
+        "input",
+        function() {
+
+            audio.volume =
+                this.value;
+
+        }
+    );
+
+
+/* =====================================================
+   TIME FORMAT
+===================================================== */
+
+function formatTime(
+    seconds
+) {
+
+    if (
+        isNaN(seconds)
+    ) {
+
+        return "0:00";
+
+    }
+
+
+    const minutes =
+        Math.floor(
+            seconds / 60
+        );
+
+
+    const remaining =
+        Math.floor(
+            seconds % 60
+        );
+
+
+    return (
+        minutes +
+        ":" +
+        String(
+            remaining
+        ).padStart(
+            2,
+            "0"
+        )
+    );
+
+}
+
+
+/* =====================================================
+   SEARCH
+===================================================== */
+
+function searchSongs() {
+
+    const search =
+        document.getElementById(
+            "searchBox"
+        )
+        .value
+        .toLowerCase();
+
+
+    const cards =
+        document.querySelectorAll(
+            ".song-card"
+        );
+
+
+    cards.forEach(
+        card => {
+
+            const name =
+                card.dataset.name
+                    .toLowerCase();
+
+
+            const text =
+                card.textContent
+                    .toLowerCase();
+
+
+            if (
+                name.includes(search) ||
+                text.includes(search)
+            ) {
+
+                card.style.display =
+                    "block";
+
+            } else {
+
+                card.style.display =
+                    "none";
+
+            }
+
+        }
+    );
+
+}
+
+
+/* =====================================================
+   SCROLL
+===================================================== */
+
+function scrollToLatest() {
+
+    document
+        .getElementById(
+            "latest"
+        )
+        .scrollIntoView({
+            behavior:
+                "smooth"
+        });
+
+}
+
+</script>
+
+</body>
+
+</html>
