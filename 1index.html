@@ -1,0 +1,2011 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport"
+      content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no">
+
+<title>ISAIHUB - Music System</title>
+
+<style>
+*{
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
+    -webkit-tap-highlight-color:transparent;
+}
+
+:root{
+    --bg:#080812;
+    --card:#131321;
+    --card2:#1c1c2d;
+    --text:#fff;
+    --muted:#999;
+    --primary:#7c3aed;
+    --secondary:#2563eb;
+    --danger:#ef4444;
+}
+
+body{
+    background:
+        radial-gradient(circle at top,#19133a 0,#080812 45%);
+    color:var(--text);
+    font-family:Arial,Helvetica,sans-serif;
+    min-height:100vh;
+    padding-bottom:90px;
+}
+
+header{
+    padding:22px 18px 14px;
+    text-align:center;
+}
+
+.logo{
+    font-size:30px;
+    font-weight:900;
+    letter-spacing:3px;
+}
+
+.logo span{
+    color:#8b5cf6;
+}
+
+.tagline{
+    color:var(--muted);
+    margin-top:6px;
+    font-size:13px;
+}
+
+.container{
+    width:100%;
+    max-width:700px;
+    margin:auto;
+    padding:12px 16px 25px;
+}
+
+.card{
+    background:rgba(19,19,33,.94);
+    border:1px solid #29293d;
+    border-radius:20px;
+    padding:18px;
+    margin-bottom:16px;
+    box-shadow:0 12px 35px rgba(0,0,0,.25);
+}
+
+.access{
+    width:100%;
+    border:0;
+    border-radius:16px;
+    padding:16px;
+    color:white;
+    font-size:16px;
+    font-weight:bold;
+    background:linear-gradient(135deg,var(--primary),var(--secondary));
+    cursor:pointer;
+}
+
+.access:active,
+button:active{
+    transform:scale(.97);
+}
+
+.status{
+    text-align:center;
+    color:var(--muted);
+    font-size:12px;
+    margin:10px 0 18px;
+}
+
+.album{
+    width:210px;
+    height:210px;
+    margin:auto;
+    border-radius:24px;
+    background:
+        linear-gradient(135deg,#7c3aed,#2563eb,#06b6d4);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:80px;
+    box-shadow:0 20px 50px rgba(124,58,237,.3);
+}
+
+.song-title{
+    text-align:center;
+    font-size:20px;
+    font-weight:bold;
+    margin-top:18px;
+    overflow:hidden;
+    text-overflow:ellipsis;
+    white-space:nowrap;
+}
+
+.song-info{
+    text-align:center;
+    color:var(--muted);
+    margin-top:7px;
+    font-size:13px;
+}
+
+input[type=range]{
+    width:100%;
+    accent-color:#8b5cf6;
+}
+
+.progress{
+    margin-top:20px;
+}
+
+.times{
+    display:flex;
+    justify-content:space-between;
+    color:#888;
+    font-size:11px;
+    margin-top:5px;
+}
+
+.controls{
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    gap:13px;
+    margin-top:18px;
+}
+
+.ctrl{
+    width:48px;
+    height:48px;
+    border:0;
+    border-radius:50%;
+    background:#29293c;
+    color:white;
+    font-size:19px;
+}
+
+.play{
+    width:64px;
+    height:64px;
+    background:#7c3aed;
+    font-size:25px;
+}
+
+.small-controls{
+    display:flex;
+    justify-content:center;
+    gap:10px;
+    margin-top:13px;
+}
+
+.small-btn{
+    border:0;
+    background:#202031;
+    color:#bbb;
+    padding:9px 13px;
+    border-radius:10px;
+}
+
+.section-title{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:14px;
+}
+
+.section-title h2{
+    font-size:18px;
+}
+
+.badge{
+    background:#29203f;
+    color:#b794ff;
+    padding:5px 9px;
+    border-radius:20px;
+    font-size:11px;
+}
+
+.song-list{
+    display:flex;
+    flex-direction:column;
+    gap:8px;
+    max-height:330px;
+    overflow-y:auto;
+}
+
+.song{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    background:#1d1d2c;
+    padding:12px;
+    border-radius:13px;
+    cursor:pointer;
+}
+
+.song.active{
+    border:1px solid #7c3aed;
+    background:#241b3c;
+}
+
+.song-number{
+    width:25px;
+    color:#888;
+    font-size:12px;
+}
+
+.song-name{
+    flex:1;
+    overflow:hidden;
+    white-space:nowrap;
+    text-overflow:ellipsis;
+    font-size:14px;
+}
+
+.song-size{
+    color:#777;
+    font-size:10px;
+}
+
+.search{
+    width:100%;
+    padding:13px;
+    border:1px solid #303044;
+    border-radius:12px;
+    background:#0e0e18;
+    color:white;
+    outline:none;
+    margin-bottom:12px;
+}
+
+.tools{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:10px;
+}
+
+.tool{
+    border:1px solid #2b2b40;
+    background:#1b1b2a;
+    border-radius:15px;
+    padding:15px 12px;
+    color:white;
+    text-align:left;
+}
+
+.tool b{
+    display:block;
+    font-size:14px;
+    margin-bottom:5px;
+}
+
+.tool span{
+    color:#888;
+    font-size:11px;
+}
+
+.control-row{
+    margin:15px 0;
+}
+
+.control-row label{
+    display:flex;
+    justify-content:space-between;
+    font-size:13px;
+    margin-bottom:7px;
+}
+
+.value{
+    color:#a78bfa;
+}
+
+.switch-row{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:12px 0;
+    border-bottom:1px solid #272738;
+}
+
+.switch-row:last-child{
+    border-bottom:0;
+}
+
+.switch{
+    width:48px;
+    height:26px;
+    background:#333348;
+    border-radius:30px;
+    position:relative;
+}
+
+.switch::after{
+    content:"";
+    position:absolute;
+    width:20px;
+    height:20px;
+    background:white;
+    border-radius:50%;
+    top:3px;
+    left:4px;
+    transition:.2s;
+}
+
+.switch.on{
+    background:#7c3aed;
+}
+
+.switch.on::after{
+    left:24px;
+}
+
+.eq{
+    display:grid;
+    grid-template-columns:repeat(5,1fr);
+    gap:9px;
+    margin-top:15px;
+}
+
+.eq-band{
+    text-align:center;
+}
+
+.eq-band input{
+    height:120px;
+    writing-mode:vertical-lr;
+    direction:rtl;
+    width:25px;
+}
+
+.eq-band small{
+    display:block;
+    color:#999;
+    margin-top:5px;
+    font-size:9px;
+}
+
+.preset-row{
+    display:flex;
+    gap:8px;
+    overflow-x:auto;
+    padding-bottom:4px;
+}
+
+.preset{
+    flex-shrink:0;
+    border:0;
+    background:#242438;
+    color:#ddd;
+    padding:10px 14px;
+    border-radius:20px;
+}
+
+.nav{
+    position:fixed;
+    bottom:0;
+    left:0;
+    right:0;
+    height:74px;
+    background:rgba(10,10,18,.97);
+    border-top:1px solid #29293b;
+    display:flex;
+    justify-content:space-around;
+    align-items:center;
+    z-index:100;
+    padding-bottom:env(safe-area-inset-bottom);
+}
+
+.nav button{
+    background:none;
+    border:0;
+    color:#777;
+    font-size:10px;
+}
+
+.nav button div{
+    font-size:21px;
+    margin-bottom:3px;
+}
+
+.nav button.active{
+    color:#a78bfa;
+}
+
+.hidden{
+    display:none!important;
+}
+
+.message{
+    text-align:center;
+    color:#777;
+    padding:20px 5px;
+    font-size:13px;
+}
+
+@media(max-width:380px){
+    .album{
+        width:180px;
+        height:180px;
+    }
+
+    .tools{
+        grid-template-columns:1fr 1fr;
+    }
+
+    .eq{
+        gap:3px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+    <div class="logo">ISAI<span>HUB</span></div>
+    <div class="tagline">Your Music. Your Device. Your Control.</div>
+</header>
+
+<main class="container">
+
+<!-- HOME -->
+
+<section id="homePage">
+
+<div class="card">
+<button class="access" onclick="chooseMusic()">
+📂 Select Music From Device
+</button>
+
+<div class="status" id="status">
+No music selected
+</div>
+</div>
+
+<div class="card">
+
+<div class="section-title">
+<h2>🎵 Now Playing</h2>
+<span class="badge" id="modeBadge">LOCAL</span>
+</div>
+
+<div class="album">🎵</div>
+
+<div class="song-title" id="songTitle">
+No Song Selected
+</div>
+
+<div class="song-info" id="songInfo">
+Select music from your device
+</div>
+
+<div class="progress">
+
+<input
+type="range"
+id="progress"
+min="0"
+max="100"
+value="0">
+
+<div class="times">
+<span id="currentTime">0:00</span>
+<span id="duration">0:00</span>
+</div>
+
+</div>
+
+<div class="controls">
+
+<button class="ctrl" onclick="previousSong()">⏮</button>
+
+<button class="ctrl" onclick="seekBack()">↶</button>
+
+<button class="ctrl play" id="playButton" onclick="togglePlay()">▶</button>
+
+<button class="ctrl" onclick="seekForward()">↷</button>
+
+<button class="ctrl" onclick="nextSong()">⏭</button>
+
+</div>
+
+<div class="small-controls">
+
+<button class="small-btn" id="shuffleBtn" onclick="toggleShuffle()">🔀 Shuffle</button>
+
+<button class="small-btn" id="repeatBtn" onclick="toggleRepeat()">🔁 Repeat</button>
+
+</div>
+
+</div>
+
+<div class="card">
+
+<div class="section-title">
+<h2>🛠 Music Tools</h2>
+</div>
+
+<div class="tools">
+
+<button class="tool" onclick="showPage('equalizerPage')">
+<b>🎚️ Equalizer</b>
+<span>10-band audio control</span>
+</button>
+
+<button class="tool" onclick="showPage('bassPage')">
+<b>🔊 Bass Booster</b>
+<span>Increase low frequencies</span>
+</button>
+
+<button class="tool" onclick="showPage('spatialPage')">
+<b>🌌 Spatial Audio</b>
+<span>3D / stereo effects</span>
+</button>
+
+<button class="tool" onclick="showPage('effectsPage')">
+<b>🎛 Effects</b>
+<span>Reverb, gain & balance</span>
+</button>
+
+<button class="tool" onclick="toggleVisualizer()">
+<b>📊 Visualizer</b>
+<span>Audio visualization</span>
+</button>
+
+<button class="tool" onclick="toggleFullscreen()">
+<b>⛶ Full Screen</b>
+<span>Immersive player</span>
+</button>
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- MUSIC PAGE -->
+
+<section id="musicPage" class="hidden">
+
+<div class="card">
+
+<div class="section-title">
+<h2>🎵 My Music</h2>
+<span class="badge" id="songCount">0</span>
+</div>
+
+<input
+class="search"
+id="search"
+placeholder="Search your songs..."
+oninput="searchSongs()">
+
+<div class="song-list" id="songList">
+
+<div class="message">
+Select music from your device first.
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- PLAYER PAGE -->
+
+<section id="playerPage" class="hidden">
+
+<div class="card">
+
+<div class="section-title">
+<h2>🎧 Player</h2>
+</div>
+
+<div class="album">🎵</div>
+
+<div class="song-title" id="playerTitle">
+No Song
+</div>
+
+<div class="song-info">
+ISAIHUB Player
+</div>
+
+<div class="progress">
+
+<input
+type="range"
+id="playerProgress"
+min="0"
+max="100"
+value="0"
+oninput="changeProgress(this.value)">
+
+</div>
+
+<div class="controls">
+
+<button class="ctrl" onclick="previousSong()">⏮</button>
+
+<button class="ctrl play" onclick="togglePlay()">▶</button>
+
+<button class="ctrl" onclick="nextSong()">⏭</button>
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- EQUALIZER -->
+
+<section id="equalizerPage" class="hidden">
+
+<div class="card">
+
+<div class="section-title">
+<h2>🎚️ 10-Band Equalizer</h2>
+</div>
+
+<div class="preset-row">
+
+<button class="preset" onclick="eqPreset('flat')">Flat</button>
+<button class="preset" onclick="eqPreset('bass')">Bass</button>
+<button class="preset" onclick="eqPreset('rock')">Rock</button>
+<button class="preset" onclick="eqPreset('pop')">Pop</button>
+<button class="preset" onclick="eqPreset('vocal')">Vocal</button>
+
+</div>
+
+<div class="eq" id="eq"></div>
+
+</div>
+
+</section>
+
+
+<!-- BASS -->
+
+<section id="bassPage" class="hidden">
+
+<div class="card">
+
+<div class="section-title">
+<h2>🔊 Bass Booster</h2>
+</div>
+
+<div class="control-row">
+
+<label>
+<span>Bass</span>
+<span class="value" id="bassValue">0 dB</span>
+</label>
+
+<input
+type="range"
+id="bass"
+min="0"
+max="20"
+value="0"
+oninput="setBass(this.value)">
+
+</div>
+
+<div class="control-row">
+
+<label>
+<span>Treble</span>
+<span class="value" id="trebleValue">0 dB</span>
+</label>
+
+<input
+type="range"
+id="treble"
+min="-10"
+max="10"
+value="0"
+oninput="setTreble(this.value)">
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- SPATIAL -->
+
+<section id="spatialPage" class="hidden">
+
+<div class="card">
+
+<div class="section-title">
+<h2>🌌 Spatial Audio</h2>
+</div>
+
+<div class="switch-row">
+<span>3D Audio</span>
+<div class="switch" id="spatialSwitch"
+onclick="toggleEffect('spatial')"></div>
+</div>
+
+<div class="switch-row">
+<span>8D Style Effect</span>
+<div class="switch" id="eightDSwitch"
+onclick="toggleEffect('8d')"></div>
+</div>
+
+<div class="switch-row">
+<span>Virtual Surround</span>
+<div class="switch" id="surroundSwitch"
+onclick="toggleEffect('surround')"></div>
+</div>
+
+<div class="control-row">
+
+<label>
+<span>Stereo Width</span>
+<span class="value" id="widthValue">0%</span>
+</label>
+
+<input
+type="range"
+min="0"
+max="100"
+value="0"
+oninput="setStereoWidth(this.value)">
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- EFFECTS -->
+
+<section id="effectsPage" class="hidden">
+
+<div class="card">
+
+<div class="section-title">
+<h2>🎛️ Audio Effects</h2>
+</div>
+
+<div class="control-row">
+
+<label>
+<span>Volume</span>
+<span class="value" id="volumeValue">100%</span>
+</label>
+
+<input
+type="range"
+id="volume"
+min="0"
+max="100"
+value="100"
+oninput="setVolume(this.value)">
+
+</div>
+
+<div class="control-row">
+
+<label>
+<span>Preamp / Gain</span>
+<span class="value" id="gainValue">0 dB</span>
+</label>
+
+<input
+type="range"
+id="gain"
+min="-12"
+max="12"
+value="0"
+oninput="setGain(this.value)">
+
+</div>
+
+<div class="control-row">
+
+<label>
+<span>Left / Right Balance</span>
+<span class="value" id="balanceValue">Center</span>
+</label>
+
+<input
+type="range"
+id="balance"
+min="-1"
+max="1"
+step="0.01"
+value="0"
+oninput="setBalance(this.value)">
+
+</div>
+
+<div class="control-row">
+
+<label>
+<span>Reverb</span>
+<span class="value" id="reverbValue">0%</span>
+</label>
+
+<input
+type="range"
+id="reverb"
+min="0"
+max="100"
+value="0"
+oninput="setReverb(this.value)">
+
+</div>
+
+<div class="switch-row">
+
+<span>Mono Mode</span>
+
+<div
+class="switch"
+id="monoSwitch"
+onclick="toggleMono()">
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- FAVORITES -->
+
+<section id="favoritesPage" class="hidden">
+
+<div class="card">
+
+<div class="section-title">
+<h2>❤️ Favorites</h2>
+</div>
+
+<div id="favoritesList" class="song-list">
+
+<div class="message">
+No favorite songs yet.
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- SETTINGS -->
+
+<section id="settingsPage" class="hidden">
+
+<div class="card">
+
+<div class="section-title">
+<h2>⚙️ Settings</h2>
+</div>
+
+<div class="switch-row">
+<span>Keep Local Music Only</span>
+<div class="switch on"></div>
+</div>
+
+<div class="switch-row">
+<span>Auto Next Song</span>
+<div class="switch on" id="autoNextSwitch"
+onclick="toggleAutoNext()"></div>
+</div>
+
+<div class="switch-row">
+<span>Dark Mode</span>
+<div class="switch on"></div>
+</div>
+
+<div class="switch-row">
+<span>Visualizer</span>
+<div class="switch" id="visualSwitch"
+onclick="toggleVisualizer()"></div>
+</div>
+
+</div>
+
+<div class="card">
+
+<h2 style="margin-bottom:10px">
+🔐 Privacy
+</h2>
+
+<p style="color:#999;font-size:13px;line-height:1.6">
+ISAIHUB is designed to play music selected by you
+from your device. Selected audio files are not
+automatically uploaded to a server.
+</p>
+
+</div>
+
+</section>
+
+</main>
+
+
+<!-- BOTTOM NAV -->
+
+<nav class="nav">
+
+<button class="active" onclick="showPage('homePage',this)">
+<div>🏠</div>
+Home
+</button>
+
+<button onclick="showPage('musicPage',this)">
+<div>🎵</div>
+Music
+</button>
+
+<button onclick="showPage('playerPage',this)">
+<div>▶️</div>
+Player
+</button>
+
+<button onclick="showPage('favoritesPage',this)">
+<div>❤️</div>
+Favorites
+</button>
+
+<button onclick="showPage('settingsPage',this)">
+<div>⚙️</div>
+Settings
+</button>
+
+</nav>
+
+
+<audio id="audio" preload="metadata"></audio>
+
+
+<script>
+
+/* =====================================
+   GLOBAL VARIABLES
+===================================== */
+
+const audio = document.getElementById("audio");
+
+let songs = [];
+let currentIndex = 0;
+
+let shuffle = false;
+let repeat = false;
+let autoNext = true;
+
+let favorites = [];
+
+let audioContext = null;
+let sourceNode = null;
+
+let bassFilter = null;
+let trebleFilter = null;
+let gainNode = null;
+let balanceNode = null;
+
+let eqFilters = [];
+
+let audioInitialized = false;
+
+let spatialEnabled = false;
+let eightDEnabled = false;
+let surroundEnabled = false;
+let monoEnabled = false;
+
+
+/* =====================================
+   SELECT MUSIC
+===================================== */
+
+function chooseMusic(){
+
+    const input = document.createElement("input");
+
+    input.type = "file";
+    input.accept = "audio/*";
+    input.multiple = true;
+
+    input.onchange = function(e){
+
+        const selected =
+            Array.from(e.target.files);
+
+        if(!selected.length) return;
+
+        songs = selected;
+
+        document.getElementById("status").textContent =
+            songs.length + " song(s) selected";
+
+        document.getElementById("songCount").textContent =
+            songs.length;
+
+        displaySongs();
+
+        loadSong(0);
+    };
+
+    input.click();
+}
+
+
+/* =====================================
+   AUDIO ENGINE
+===================================== */
+
+function initializeAudio(){
+
+    if(audioInitialized) return;
+
+    try{
+
+        audioContext =
+            new (window.AudioContext ||
+            window.webkitAudioContext)();
+
+        sourceNode =
+            audioContext.createMediaElementSource(audio);
+
+        bassFilter =
+            audioContext.createBiquadFilter();
+
+        bassFilter.type = "lowshelf";
+        bassFilter.frequency.value = 120;
+
+        trebleFilter =
+            audioContext.createBiquadFilter();
+
+        trebleFilter.type = "highshelf";
+        trebleFilter.frequency.value = 5000;
+
+        gainNode =
+            audioContext.createGain();
+
+        balanceNode =
+            audioContext.createStereoPanner();
+
+        sourceNode
+            .connect(bassFilter)
+            .connect(trebleFilter);
+
+        createEqualizer();
+
+        trebleFilter
+            .connect(gainNode)
+            .connect(balanceNode)
+            .connect(audioContext.destination);
+
+        audioInitialized = true;
+
+    }catch(error){
+
+        console.log(error);
+
+    }
+}
+
+
+/* =====================================
+   EQUALIZER
+===================================== */
+
+const frequencies = [
+    60,120,250,500,1000,
+    2000,4000,8000,12000,16000
+];
+
+function createEqualizer(){
+
+    if(!audioContext) return;
+
+    let previous = trebleFilter;
+
+    eqFilters = [];
+
+    frequencies.forEach((frequency,index)=>{
+
+        const filter =
+            audioContext.createBiquadFilter();
+
+        filter.type =
+            index === 0 ? "lowshelf" :
+            index === frequencies.length-1
+            ? "highshelf"
+            : "peaking";
+
+        filter.frequency.value =
+            frequency;
+
+        filter.Q.value = 1;
+
+        filter.gain.value = 0;
+
+        previous.disconnect();
+
+        previous.connect(filter);
+
+        previous = filter;
+
+        eqFilters.push(filter);
+    });
+
+    previous.connect(gainNode);
+
+    const container =
+        document.getElementById("eq");
+
+    frequencies.forEach((frequency,index)=>{
+
+        const band =
+            document.createElement("div");
+
+        band.className = "eq-band";
+
+        band.innerHTML = `
+            <input
+                type="range"
+                min="-12"
+                max="12"
+                value="0"
+                id="eq${index}"
+                oninput="changeEQ(${index},this.value)">
+            <small>${formatFrequency(frequency)}</small>
+        `;
+
+        container.appendChild(band);
+    });
+}
+
+function formatFrequency(freq){
+
+    if(freq >= 1000)
+        return (freq/1000)+"k";
+
+    return freq;
+}
+
+function changeEQ(index,value){
+
+    if(eqFilters[index])
+        eqFilters[index].gain.value =
+            Number(value);
+}
+
+function eqPreset(type){
+
+    const values = {
+
+        flat:
+        [0,0,0,0,0,0,0,0,0,0],
+
+        bass:
+        [8,7,5,3,1,0,0,0,0,0],
+
+        rock:
+        [5,3,1,-1,-2,1,3,5,5,4],
+
+        pop:
+        [-1,2,4,5,3,0,-1,-1,2,3],
+
+        vocal:
+        [-3,-2,-1,2,5,6,5,3,1,0]
+    };
+
+    const preset = values[type];
+
+    if(!preset) return;
+
+    preset.forEach((value,index)=>{
+
+        const slider =
+            document.getElementById("eq"+index);
+
+        if(slider)
+            slider.value = value;
+
+        if(eqFilters[index])
+            eqFilters[index].gain.value =
+                value;
+    });
+}
+
+
+/* =====================================
+   LOAD SONG
+===================================== */
+
+function loadSong(index){
+
+    if(!songs.length) return;
+
+    currentIndex = index;
+
+    const song = songs[index];
+
+    const url =
+        URL.createObjectURL(song);
+
+    audio.src = url;
+
+    document.getElementById("songTitle")
+        .textContent = song.name;
+
+    document.getElementById("playerTitle")
+        .textContent = song.name;
+
+    document.getElementById("songInfo")
+        .textContent =
+        "Local audio • " +
+        formatSize(song.size);
+
+    highlightSong();
+
+    initializeAudio();
+
+    if(audioContext &&
+       audioContext.state === "suspended"){
+
+        audioContext.resume();
+    }
+
+    audio.play()
+        .then(()=>{
+            updatePlayButton(true);
+        })
+        .catch(()=>{
+            updatePlayButton(false);
+        });
+}
+
+
+/* =====================================
+   PLAY / PAUSE
+===================================== */
+
+function togglePlay(){
+
+    if(!audio.src) return;
+
+    initializeAudio();
+
+    if(audioContext &&
+       audioContext.state === "suspended"){
+
+        audioContext.resume();
+    }
+
+    if(audio.paused){
+
+        audio.play();
+
+        updatePlayButton(true);
+
+    }else{
+
+        audio.pause();
+
+        updatePlayButton(false);
+    }
+}
+
+function updatePlayButton(playing){
+
+    document.getElementById("playButton")
+        .textContent =
+        playing ? "⏸" : "▶";
+}
+
+
+/* =====================================
+   NEXT / PREVIOUS
+===================================== */
+
+function nextSong(){
+
+    if(!songs.length) return;
+
+    if(shuffle){
+
+        let next =
+            Math.floor(
+                Math.random()*songs.length
+            );
+
+        if(songs.length > 1 &&
+           next === currentIndex){
+
+            next =
+                (next+1)%songs.length;
+        }
+
+        currentIndex = next;
+
+    }else{
+
+        currentIndex++;
+
+        if(currentIndex >= songs.length){
+
+            if(repeat)
+                currentIndex = 0;
+            else{
+                currentIndex =
+                    songs.length-1;
+
+                return;
+            }
+        }
+    }
+
+    loadSong(currentIndex);
+}
+
+
+function previousSong(){
+
+    if(!songs.length) return;
+
+    if(audio.currentTime > 5){
+
+        audio.currentTime = 0;
+        return;
+    }
+
+    currentIndex--;
+
+    if(currentIndex < 0)
+        currentIndex = songs.length-1;
+
+    loadSong(currentIndex);
+}
+
+
+/* =====================================
+   SEEK
+===================================== */
+
+function seekBack(){
+
+    audio.currentTime =
+        Math.max(
+            0,
+            audio.currentTime-10
+        );
+}
+
+function seekForward(){
+
+    audio.currentTime =
+        Math.min(
+            audio.duration || 0,
+            audio.currentTime+10
+        );
+}
+
+
+/* =====================================
+   PROGRESS
+===================================== */
+
+audio.addEventListener(
+"timeupdate",
+function(){
+
+    if(!audio.duration) return;
+
+    const percent =
+        (audio.currentTime/
+        audio.duration)*100;
+
+    document.getElementById("progress")
+        .value = percent;
+
+    document.getElementById("playerProgress")
+        .value = percent;
+
+    document.getElementById("currentTime")
+        .textContent =
+        formatTime(audio.currentTime);
+
+    document.getElementById("duration")
+        .textContent =
+        formatTime(audio.duration);
+});
+
+
+document.getElementById("progress")
+.addEventListener("input",function(){
+
+    changeProgress(this.value);
+
+});
+
+
+function changeProgress(value){
+
+    if(!audio.duration) return;
+
+    audio.currentTime =
+        (Number(value)/100) *
+        audio.duration;
+}
+
+
+/* =====================================
+   AUTO NEXT
+===================================== */
+
+audio.addEventListener("ended",function(){
+
+    if(autoNext)
+        nextSong();
+
+});
+
+
+/* =====================================
+   SHUFFLE / REPEAT
+===================================== */
+
+function toggleShuffle(){
+
+    shuffle = !shuffle;
+
+    const btn =
+        document.getElementById("shuffleBtn");
+
+    btn.style.background =
+        shuffle ? "#7c3aed" : "#202031";
+}
+
+function toggleRepeat(){
+
+    repeat = !repeat;
+
+    const btn =
+        document.getElementById("repeatBtn");
+
+    btn.style.background =
+        repeat ? "#7c3aed" : "#202031";
+}
+
+
+/* =====================================
+   SONG LIST
+===================================== */
+
+function displaySongs(list = songs){
+
+    const container =
+        document.getElementById("songList");
+
+    container.innerHTML = "";
+
+    if(!list.length){
+
+        container.innerHTML =
+            `<div class="message">
+            No songs found.
+            </div>`;
+
+        return;
+    }
+
+    list.forEach((song)=>{
+
+        const originalIndex =
+            songs.indexOf(song);
+
+        const item =
+            document.createElement("div");
+
+        item.className = "song";
+
+        item.innerHTML = `
+
+            <div class="song-number">
+                ${originalIndex+1}
+            </div>
+
+            <div class="song-name">
+                ${escapeHTML(song.name)}
+            </div>
+
+            <div class="song-size">
+                ${formatSize(song.size)}
+            </div>
+
+            <div>▶</div>
+        `;
+
+        item.onclick =
+            ()=>loadSong(originalIndex);
+
+        container.appendChild(item);
+    });
+}
+
+
+function highlightSong(){
+
+    const items =
+        document.querySelectorAll(".song");
+
+    items.forEach((item,index)=>{
+
+        item.classList.toggle(
+            "active",
+            index === currentIndex
+        );
+    });
+}
+
+
+function searchSongs(){
+
+    const query =
+        document.getElementById("search")
+        .value.toLowerCase();
+
+    const filtered =
+        songs.filter(song =>
+            song.name
+            .toLowerCase()
+            .includes(query)
+        );
+
+    displaySongs(filtered);
+}
+
+
+/* =====================================
+   BASS / TREBLE
+===================================== */
+
+function setBass(value){
+
+    document.getElementById("bassValue")
+        .textContent = value+" dB";
+
+    if(bassFilter)
+        bassFilter.gain.value =
+            Number(value);
+}
+
+
+function setTreble(value){
+
+    document.getElementById("trebleValue")
+        .textContent = value+" dB";
+
+    if(trebleFilter)
+        trebleFilter.gain.value =
+            Number(value);
+}
+
+
+/* =====================================
+   VOLUME
+===================================== */
+
+function setVolume(value){
+
+    audio.volume =
+        Number(value)/100;
+
+    document.getElementById("volumeValue")
+        .textContent = value+"%";
+}
+
+
+/* =====================================
+   GAIN
+===================================== */
+
+function setGain(value){
+
+    document.getElementById("gainValue")
+        .textContent = value+" dB";
+
+    if(gainNode)
+        gainNode.gain.value =
+            Math.pow(
+                10,
+                Number(value)/20
+            );
+}
+
+
+/* =====================================
+   BALANCE
+===================================== */
+
+function setBalance(value){
+
+    if(balanceNode)
+        balanceNode.pan.value =
+            Number(value);
+
+    let text = "Center";
+
+    if(value < -0.05)
+        text = "Left";
+
+    if(value > 0.05)
+        text = "Right";
+
+    document.getElementById("balanceValue")
+        .textContent = text;
+}
+
+
+/* =====================================
+   REVERB
+===================================== */
+
+function setReverb(value){
+
+    document.getElementById("reverbValue")
+        .textContent = value+"%";
+
+    /*
+      Basic browser-safe implementation.
+      Full convolution reverb can be added
+      with an impulse-response engine.
+    */
+}
+
+
+/* =====================================
+   MONO
+===================================== */
+
+function toggleMono(){
+
+    monoEnabled =
+        !monoEnabled;
+
+    const sw =
+        document.getElementById("monoSwitch");
+
+    sw.classList.toggle(
+        "on",
+        monoEnabled
+    );
+
+    /*
+      StereoPanner does not provide
+      true mono mixing.
+
+      This switch is reserved for
+      the advanced audio routing layer.
+    */
+}
+
+
+/* =====================================
+   SPATIAL EFFECTS
+===================================== */
+
+function toggleEffect(type){
+
+    if(type === "spatial"){
+
+        spatialEnabled =
+            !spatialEnabled;
+
+        document.getElementById(
+            "spatialSwitch"
+        ).classList.toggle(
+            "on",
+            spatialEnabled
+        );
+    }
+
+    if(type === "8d"){
+
+        eightDEnabled =
+            !eightDEnabled;
+
+        document.getElementById(
+            "eightDSwitch"
+        ).classList.toggle(
+            "on",
+            eightDEnabled
+        );
+
+        if(eightDEnabled)
+            start8D();
+    }
+
+    if(type === "surround"){
+
+        surroundEnabled =
+            !surroundEnabled;
+
+        document.getElementById(
+            "surroundSwitch"
+        ).classList.toggle(
+            "on",
+            surroundEnabled
+        );
+    }
+}
+
+
+/* =====================================
+   STEREO WIDTH
+===================================== */
+
+function setStereoWidth(value){
+
+    document.getElementById("widthValue")
+        .textContent = value+"%";
+
+    /*
+      Browser stereo width processing
+      can be expanded with a custom
+      stereo matrix.
+    */
+}
+
+
+/* =====================================
+   8D EFFECT
+===================================== */
+
+let eightDTimer = null;
+
+function start8D(){
+
+    if(eightDTimer)
+        clearInterval(eightDTimer);
+
+    eightDTimer =
+        setInterval(()=>{
+
+            if(!eightDEnabled ||
+               !balanceNode)
+                return;
+
+            const movement =
+                Math.sin(
+                    Date.now()/700
+                );
+
+            balanceNode.pan.value =
+                movement;
+
+        },50);
+}
+
+
+/* =====================================
+   AUTO NEXT
+===================================== */
+
+function toggleAutoNext(){
+
+    autoNext = !autoNext;
+
+    document
+        .getElementById("autoNextSwitch")
+        .classList.toggle(
+            "on",
+            autoNext
+        );
+}
+
+
+/* =====================================
+   FAVORITES
+===================================== */
+
+function addFavorite(){
+
+    if(!songs.length) return;
+
+    const song = songs[currentIndex];
+
+    if(!favorites.includes(song.name)){
+
+        favorites.push(song.name);
+
+        displayFavorites();
+    }
+}
+
+function displayFavorites(){
+
+    const container =
+        document.getElementById(
+            "favoritesList"
+        );
+
+    if(!favorites.length){
+
+        container.innerHTML =
+            `<div class="message">
+            No favorite songs yet.
+            </div>`;
+
+        return;
+    }
+
+    container.innerHTML = "";
+
+    favorites.forEach(name=>{
+
+        const song =
+            songs.find(
+                s=>s.name===name
+            );
+
+        if(!song) return;
+
+        const index =
+            songs.indexOf(song);
+
+        const item =
+            document.createElement("div");
+
+        item.className = "song";
+
+        item.innerHTML = `
+            <div>❤️</div>
+            <div class="song-name">
+                ${escapeHTML(name)}
+            </div>
+            <div>▶</div>
+        `;
+
+        item.onclick =
+            ()=>loadSong(index);
+
+        container.appendChild(item);
+    });
+}
+
+
+/* =====================================
+   PAGE NAVIGATION
+===================================== */
+
+function showPage(pageId,button){
+
+    document.querySelectorAll(
+        "main section"
+    ).forEach(section=>{
+        section.classList.add("hidden");
+    });
+
+    document.getElementById(pageId)
+        .classList.remove("hidden");
+
+    document.querySelectorAll(
+        ".nav button"
+    ).forEach(btn=>{
+        btn.classList.remove("active");
+    });
+
+    if(button)
+        button.classList.add("active");
+}
+
+
+/* =====================================
+   VISUALIZER
+===================================== */
+
+let visualizer = false;
+
+function toggleVisualizer(){
+
+    visualizer = !visualizer;
+
+    document.getElementById(
+        "visualSwitch"
+    )?.classList.toggle(
+        "on",
+        visualizer
+    );
+
+    /*
+      Canvas visualizer can be connected
+      to AnalyserNode in the advanced version.
+    */
+}
+
+
+/* =====================================
+   FULL SCREEN
+===================================== */
+
+function toggleFullscreen(){
+
+    if(document.fullscreenElement){
+
+        document.exitFullscreen();
+
+    }else{
+
+        document.documentElement
+            .requestFullscreen?.();
+    }
+}
+
+
+/* =====================================
+   HELPERS
+===================================== */
+
+function formatTime(seconds){
+
+    if(!isFinite(seconds))
+        return "0:00";
+
+    const min =
+        Math.floor(seconds/60);
+
+    const sec =
+        Math.floor(seconds%60)
+        .toString()
+        .padStart(2,"0");
+
+    return min+":"+sec;
+}
+
+
+function formatSize(bytes){
+
+    if(!bytes) return "0 MB";
+
+    return (
+        bytes/
+        (1024*1024)
+    ).toFixed(1)+" MB";
+}
+
+
+function escapeHTML(text){
+
+    return text
+        .replaceAll("&","&amp;")
+        .replaceAll("<","&lt;")
+        .replaceAll(">","&gt;")
+        .replaceAll('"',"&quot;")
+        .replaceAll("'","&#039;");
+}
+
+
+/* =====================================
+   INITIALIZATION
+===================================== */
+
+document.addEventListener(
+"DOMContentLoaded",
+()=>{
+
+    document.getElementById(
+        "volume"
+    ).value = 100;
+
+});
+
+</script>
+
+</body>
+</html>
