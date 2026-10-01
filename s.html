@@ -1,0 +1,728 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport"
+      content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="theme-color" content="#050812">
+<title>TamilBeats Android Audio</title>
+
+<style>
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    -webkit-tap-highlight-color: transparent;
+}
+
+body {
+    background: #050812;
+    color: white;
+    font-family: Arial, sans-serif;
+    padding: 14px;
+}
+
+.container {
+    max-width: 700px;
+    margin: auto;
+}
+
+header {
+    text-align: center;
+    padding: 25px 5px;
+}
+
+header h1 {
+    color: #00e5ff;
+    letter-spacing: 3px;
+    font-size: 27px;
+}
+
+header p {
+    color: #8caed0;
+    margin-top: 10px;
+}
+
+.card {
+    background: #0b1426;
+    border: 1px solid #16466c;
+    padding: 20px;
+    border-radius: 18px;
+    margin-bottom: 18px;
+    box-shadow: 0 0 15px #001b32;
+}
+
+h2 {
+    color: #00d5ff;
+    margin-bottom: 15px;
+    font-size: 20px;
+}
+
+p {
+    line-height: 1.6;
+    color: #b8cce1;
+}
+
+button, .upload {
+    display: inline-block;
+    background: #007bff;
+    border: none;
+    color: white;
+    padding: 14px 17px;
+    border-radius: 30px;
+    margin: 5px 3px;
+    font-size: 14px;
+    font-weight: bold;
+    cursor: pointer;
+    text-align: center;
+}
+
+button:active, .upload:active {
+    background: #00d5ff;
+    color: #00101b;
+    transform: scale(.97);
+}
+
+input[type=file] {
+    display: none;
+}
+
+input[type=range] {
+    width: 100%;
+    height: 30px;
+    accent-color: #00d5ff;
+    margin: 10px 0;
+}
+
+label {
+    display: block;
+    color: #b9dfff;
+    margin-top: 16px;
+    font-size: 14px;
+}
+
+#songs {
+    list-style: none;
+    margin-top: 15px;
+}
+
+#songs li {
+    background: #14233a;
+    padding: 15px;
+    border-radius: 12px;
+    margin: 9px 0;
+    cursor: pointer;
+    overflow-wrap: anywhere;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+#songs li.active {
+    border: 1px solid #00e5ff;
+    color: #00e5ff;
+}
+
+#songs li span {
+    flex: 1;
+}
+
+.song-number {
+    color: #6e9bbf;
+}
+
+#visualizer {
+    width: 100%;
+    height: 120px;
+    background: #030812;
+    border-radius: 12px;
+    margin: 15px 0;
+}
+
+audio {
+    width: 100%;
+    margin: 15px 0;
+}
+
+.status {
+    color: #00ffc3;
+    text-align: center;
+    margin: 10px 0;
+}
+
+.center {
+    text-align: center;
+}
+
+.badge {
+    display: inline-block;
+    color: #00ffc3;
+    border: 1px solid #00a8aa;
+    padding: 7px 12px;
+    border-radius: 20px;
+    font-size: 12px;
+    margin-top: 12px;
+}
+
+footer {
+    text-align: center;
+    color: #6585a5;
+    padding: 20px 5px;
+    font-size: 12px;
+}
+
+@media(max-width: 480px) {
+    body {
+        padding: 9px;
+    }
+
+    .card {
+        padding: 16px;
+    }
+
+    header h1 {
+        font-size: 23px;
+    }
+
+    button, .upload {
+        padding: 13px 14px;
+        font-size: 13px;
+    }
+}
+</style>
+</head>
+
+<body>
+<div class="container">
+
+<header>
+    <h1>◉ TAMILBEATS</h1>
+    <p>ANDROID IMMERSIVE AUDIO PLAYER</p>
+    <div class="badge">VIRTUAL SURROUND EXPERIENCE</div>
+</header>
+
+<!-- DEVICE MUSIC -->
+
+<div class="card">
+    <h2>🎵 My Music</h2>
+    <p>Select music from your Android device.</p>
+
+    <label class="upload">
+        + Select Music Files
+        <input type="file" id="filePicker"
+               accept="audio/*" multiple>
+    </label>
+
+    <ul id="songs"></ul>
+</div>
+
+<!-- PLAYER -->
+
+<div class="card">
+    <h2 id="songTitle">No Song Selected</h2>
+
+    <p class="status" id="status">Audio ready</p>
+
+    <canvas id="visualizer"></canvas>
+
+    <audio id="player" controls
+           playsinline preload="metadata"></audio>
+
+    <div class="center">
+        <button onclick="previousSong()">⏮</button>
+        <button onclick="playSong()">▶ Play</button>
+        <button onclick="pauseSong()">⏸</button>
+        <button onclick="nextSong()">⏭</button>
+    </div>
+</div>
+
+<!-- SURROUND -->
+
+<div class="card">
+    <h2>🎧 Virtual 7.1.2</h2>
+
+    <p>Virtual stereo effects for headphones and speakers.
+    This is not a Dolby Atmos decoder.</p>
+
+    <p class="status" id="surroundStatus">SURROUND OFF</p>
+
+    <div class="center">
+        <button onclick="toggleSurround()" id="surroundBtn">
+            Enable Surround
+        </button>
+    </div>
+
+    <label>Surround Intensity
+        <span id="surroundValue">50%</span>
+    </label>
+    <input type="range" id="surroundIntensity"
+           min="0" max="100" value="50">
+
+    <label>Virtual Height
+        <span id="heightValue">30%</span>
+    </label>
+    <input type="range" id="heightIntensity"
+           min="0" max="100" value="30">
+
+    <label>Room Reverb
+        <span id="reverbValue">20%</span>
+    </label>
+    <input type="range" id="reverbIntensity"
+           min="0" max="100" value="20">
+
+    <label>Stereo Pan
+        <span id="panValue">0</span>
+    </label>
+    <input type="range" id="pan"
+           min="-100" max="100" value="0">
+</div>
+
+<!-- BASS -->
+
+<div class="card">
+    <h2>🔊 Bass Booster</h2>
+
+    <label>Bass Level
+        <span id="bassValue">0 dB</span>
+    </label>
+
+    <input type="range" id="bass"
+           min="0" max="15" value="0">
+
+    <div class="center">
+        <button onclick="setBass(0)">Normal</button>
+        <button onclick="setBass(5)">Bass 5</button>
+        <button onclick="setBass(10)">Bass 10</button>
+        <button onclick="setBass(15)">Bass Max</button>
+    </div>
+</div>
+
+<!-- EQUALIZER -->
+
+<div class="card">
+    <h2>🎚 Equalizer</h2>
+
+    <label>60 Hz - Deep Bass</label>
+    <input type="range" class="eq"
+           min="-12" max="12" value="0">
+
+    <label>250 Hz - Bass</label>
+    <input type="range" class="eq"
+           min="-12" max="12" value="0">
+
+    <label>1 kHz - Midrange</label>
+    <input type="range" class="eq"
+           min="-12" max="12" value="0">
+
+    <label>4 kHz - Clarity</label>
+    <input type="range" class="eq"
+           min="-12" max="12" value="0">
+
+    <label>12 kHz - Treble</label>
+    <input type="range" class="eq"
+           min="-12" max="12" value="0">
+</div>
+
+<div class="card center">
+    <h2>Audio Settings</h2>
+    <button onclick="resetAudio()">Reset Effects</button>
+    <p>Use a comfortable listening volume.</p>
+</div>
+
+<footer>
+    TAMILBEATS ANDROID PLAYER<br>
+    Local Playback • Web Audio API
+</footer>
+
+</div>
+
+<script>
+const picker = document.getElementById("filePicker");
+const player = document.getElementById("player");
+const songsList = document.getElementById("songs");
+const songTitle = document.getElementById("songTitle");
+const statusText = document.getElementById("status");
+
+let songs = [];
+let currentIndex = -1;
+
+let ctx, source, bassFilter, eqFilters = [];
+let dryGain, wetGain, convolver;
+let heightFilter, panner, analyser, compressor;
+let initialized = false;
+let surroundEnabled = false;
+
+// Initialize the audio engine once, after user interaction.
+async function initAudio() {
+    if (initialized) {
+        if (ctx.state === "suspended") await ctx.resume();
+        return;
+    }
+
+    const AudioContextClass =
+        window.AudioContext || window.webkitAudioContext;
+
+    if (!AudioContextClass) {
+        throw new Error("Web Audio is not supported");
+    }
+
+    ctx = new AudioContextClass();
+
+    source = ctx.createMediaElementSource(player);
+
+    bassFilter = ctx.createBiquadFilter();
+    bassFilter.type = "lowshelf";
+    bassFilter.frequency.value = 100;
+
+    const frequencies = [60, 250, 1000, 4000, 12000];
+
+    eqFilters = frequencies.map(freq => {
+        const f = ctx.createBiquadFilter();
+        f.type = "peaking";
+        f.frequency.value = freq;
+        f.Q.value = 1;
+        return f;
+    });
+
+    dryGain = ctx.createGain();
+    wetGain = ctx.createGain();
+
+    convolver = ctx.createConvolver();
+    convolver.buffer = createImpulse(1.8);
+
+    heightFilter = ctx.createBiquadFilter();
+    heightFilter.type = "highshelf";
+    heightFilter.frequency.value = 7000;
+
+    panner = ctx.createStereoPanner();
+
+    analyser = ctx.createAnalyser();
+    analyser.fftSize = 256;
+
+    compressor = ctx.createDynamicsCompressor();
+    compressor.threshold.value = -10;
+    compressor.knee.value = 8;
+    compressor.ratio.value = 8;
+    compressor.attack.value = 0.003;
+    compressor.release.value = 0.25;
+
+    let node = source;
+
+    node.connect(bassFilter);
+    node = bassFilter;
+
+    eqFilters.forEach(f => {
+        node.connect(f);
+        node = f;
+    });
+
+    node.connect(dryGain);
+
+    node.connect(convolver);
+    convolver.connect(wetGain);
+
+    dryGain.connect(panner);
+    wetGain.connect(panner);
+
+    panner.connect(heightFilter);
+    heightFilter.connect(analyser);
+    analyser.connect(compressor);
+    compressor.connect(ctx.destination);
+
+    initialized = true;
+
+    await ctx.resume();
+    drawVisualizer();
+}
+
+// Create synthetic room reflections.
+function createImpulse(duration) {
+    const length = Math.floor(ctx.sampleRate * duration);
+    const buffer = ctx.createBuffer(2, length, ctx.sampleRate);
+
+    for (let ch = 0; ch < 2; ch++) {
+        const data = buffer.getChannelData(ch);
+
+        for (let i = 0; i < length; i++) {
+            data[i] = (Math.random() * 2 - 1) *
+                Math.pow(1 - i / length, 3);
+        }
+    }
+
+    return buffer;
+}
+
+// Android file picker.
+picker.addEventListener("change", () => {
+    Array.from(picker.files).forEach(file => {
+        if (!file.type.startsWith("audio/")) return;
+
+        songs.push({
+            name: file.name,
+            url: URL.createObjectURL(file)
+        });
+    });
+
+    displaySongs();
+
+    if (currentIndex === -1 && songs.length) {
+        loadSong(0);
+    }
+
+    picker.value = "";
+});
+
+function displaySongs() {
+    songsList.innerHTML = "";
+
+    songs.forEach((song, index) => {
+        const li = document.createElement("li");
+        const number = document.createElement("small");
+        const name = document.createElement("span");
+
+        number.className = "song-number";
+        number.textContent = String(index + 1).padStart(2, "0");
+
+        name.textContent = song.name;
+
+        li.append(number, name);
+
+        if (index === currentIndex) li.classList.add("active");
+
+        li.onclick = () => loadSong(index);
+
+        songsList.appendChild(li);
+    });
+}
+
+async function loadSong(index) {
+    if (index < 0 || index >= songs.length) return;
+
+    currentIndex = index;
+    player.src = songs[index].url;
+    songTitle.textContent = songs[index].name;
+
+    displaySongs();
+
+    await initAudio();
+
+    try {
+        await player.play();
+        statusText.textContent = "Playing";
+    } catch {
+        statusText.textContent = "Press Play to start";
+    }
+}
+
+async function playSong() {
+    if (currentIndex === -1) {
+        if (songs.length) await loadSong(0);
+        return;
+    }
+
+    await initAudio();
+
+    try {
+        await player.play();
+        statusText.textContent = "Playing";
+    } catch {
+        statusText.textContent = "Playback unavailable";
+    }
+}
+
+function pauseSong() {
+    player.pause();
+    statusText.textContent = "Paused";
+}
+
+function nextSong() {
+    if (songs.length) {
+        loadSong((currentIndex + 1) % songs.length);
+    }
+}
+
+function previousSong() {
+    if (songs.length) {
+        loadSong((currentIndex - 1 + songs.length) % songs.length);
+    }
+}
+
+player.addEventListener("ended", nextSong);
+
+// Bass control.
+document.getElementById("bass").addEventListener("input", async function() {
+    const value = Number(this.value);
+
+    document.getElementById("bassValue").textContent = value + " dB";
+
+    await initAudio();
+
+    bassFilter.gain.setTargetAtTime(value, ctx.currentTime, 0.05);
+});
+
+function setBass(value) {
+    const slider = document.getElementById("bass");
+    slider.value = value;
+    slider.dispatchEvent(new Event("input"));
+}
+
+// Equalizer.
+document.querySelectorAll(".eq").forEach((slider, index) => {
+    slider.addEventListener("input", async function() {
+        await initAudio();
+
+        eqFilters[index].gain.setTargetAtTime(
+            Number(this.value), ctx.currentTime, 0.05
+        );
+    });
+});
+
+// Virtual surround controls.
+async function toggleSurround() {
+    await initAudio();
+
+    surroundEnabled = !surroundEnabled;
+
+    document.getElementById("surroundBtn").textContent =
+        surroundEnabled ? "Disable Surround" : "Enable Surround";
+
+    document.getElementById("surroundStatus").textContent =
+        surroundEnabled ? "VIRTUAL SURROUND ON" : "SURROUND OFF";
+
+    updateSurround();
+}
+
+function updateSurround() {
+    document.getElementById("surroundValue").textContent =
+        document.getElementById("surroundIntensity").value + "%";
+
+    document.getElementById("heightValue").textContent =
+        document.getElementById("heightIntensity").value + "%";
+
+    document.getElementById("reverbValue").textContent =
+        document.getElementById("reverbIntensity").value + "%";
+
+    if (!initialized) return;
+
+    const intensity =
+        Number(document.getElementById("surroundIntensity").value) / 100;
+
+    const height =
+        Number(document.getElementById("heightIntensity").value) / 100;
+
+    const reverb =
+        Number(document.getElementById("reverbIntensity").value) / 100;
+
+    const now = ctx.currentTime;
+
+    dryGain.gain.setTargetAtTime(
+        surroundEnabled ? 1 - intensity * 0.2 : 1,
+        now, 0.05
+    );
+
+    wetGain.gain.setTargetAtTime(
+        surroundEnabled ? reverb * 0.4 : 0,
+        now, 0.05
+    );
+
+    heightFilter.gain.setTargetAtTime(
+        surroundEnabled ? height * 4 : 0,
+        now, 0.05
+    );
+}
+
+["surroundIntensity", "heightIntensity", "reverbIntensity"]
+.forEach(id => {
+    document.getElementById(id).addEventListener("input", updateSurround);
+});
+
+// Stereo panning.
+document.getElementById("pan").addEventListener("input", async function() {
+    await initAudio();
+
+    document.getElementById("panValue").textContent = this.value;
+
+    panner.pan.setTargetAtTime(
+        Number(this.value) / 100,
+        ctx.currentTime, 0.05
+    );
+});
+
+// Reset effects.
+async function resetAudio() {
+    document.getElementById("bass").value = 0;
+    document.querySelectorAll(".eq").forEach(s => s.value = 0);
+
+    document.getElementById("surroundIntensity").value = 50;
+    document.getElementById("heightIntensity").value = 30;
+    document.getElementById("reverbIntensity").value = 20;
+    document.getElementById("pan").value = 0;
+
+    document.getElementById("bassValue").textContent = "0 dB";
+    document.getElementById("panValue").textContent = "0";
+
+    if (initialized) {
+        bassFilter.gain.setTargetAtTime(0, ctx.currentTime, 0.05);
+
+        eqFilters.forEach(f => {
+            f.gain.setTargetAtTime(0, ctx.currentTime, 0.05);
+        });
+
+        panner.pan.setTargetAtTime(0, ctx.currentTime, 0.05);
+    }
+
+    updateSurround();
+}
+
+// Visualizer.
+function drawVisualizer() {
+    const canvas = document.getElementById("visualizer");
+    const g = canvas.getContext("2d");
+
+    function render() {
+        requestAnimationFrame(render);
+
+        const w = canvas.clientWidth;
+        const h = canvas.clientHeight;
+
+        if (canvas.width !== w * devicePixelRatio ||
+            canvas.height !== h * devicePixelRatio) {
+            canvas.width = w * devicePixelRatio;
+            canvas.height = h * devicePixelRatio;
+        }
+
+        g.setTransform(devicePixelRatio, 0, 0, devicePixelRatio, 0, 0);
+        g.clearRect(0, 0, w, h);
+
+        if (!initialized) return;
+
+        const data = new Uint8Array(analyser.frequencyBinCount);
+        analyser.getByteFrequencyData(data);
+
+        const barWidth = w / data.length;
+
+        data.forEach((v, i) => {
+            const bh = v / 255 * h;
+
+            const gradient = g.createLinearGradient(0, h, 0, 0);
+            gradient.addColorStop(0, "#0066ff");
+            gradient.addColorStop(1, "#00ffff");
+
+            g.fillStyle = gradient;
+            g.fillRect(i * barWidth, h - bh,
+                       Math.max(1, barWidth - 2), bh);
+        });
+    }
+
+    render();
+}
+
+// Release temporary local file URLs.
+window.addEventListener("beforeunload", () => {
+    songs.forEach(song => URL.revokeObjectURL(song.url));
+});
+</script>
+
+</body>
+</html>
